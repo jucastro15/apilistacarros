@@ -3,11 +3,16 @@ import connection from "./connection.js";
 export async function inserirListaCarros(carros) {
     const comando = `
     insert into tb_carro (  ds_marca, ds_modelo, nr_ano, vl_preco, img_Carro, dt_inclusao)
-    values (?, ?, ?, ?, ?, ?);
+    values (?, ?, ?, ?, ?, sysdate());
     `;
 
-    let resposta = await connection.query(comando, [marca.descricao, ano.numero, preco.valor,
-    carros.imagem, inclusao.data])
+    const resposta = await connection.query(comando, [
+        carros.marca,
+        carros.modelo,
+        carros.ano,
+        carros.preco,
+        carros.img
+    ]);
 
     let marca = resposta[0]
 
@@ -50,8 +55,15 @@ export async function alterarListaCarros(id, carros) {
          where id_carro = ?;
          `;
 
-         let resposta = await connection.query(comando, [marca.descricao, ano.numero, preco.valor,
-            carros.imagem, inclusao.data, id])
+         let resposta = await connection.query(comando,
+            [
+            carros.marca,
+            carros.modelo,
+            carros.ano,
+            carros.preco,
+            carros.img,
+            id
+        ])
 
             let marca = resposta[0]
 

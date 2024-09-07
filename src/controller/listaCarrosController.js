@@ -40,16 +40,15 @@ endpoints.put('/listaCarros/:id', async (req, resp) => {
         let carros = req.body;
 
         let linhasAfetadas = await db.alterarListaCarros(id, carros);
-        if (linhasAfetadas  => 1)
- {
 
-    resp.send();
-
- }  else {
-
-    resp.status(404).send ({erro: `Nenhum registro encontrado.`})
-
- }
+        if (linhasAfetadas >= 1) {
+            resp.send();
+        } else {
+            resp.status(400).send({
+                error: 'Nenhum registro encontrado'
+            });
+        }
+    
     } catch (err) {
 
         resp.status(400).send ({
@@ -65,15 +64,15 @@ endpoints.delete('/listaCarros/:id', async (req, resp) => {
         let id = req.params.id;
 
         let linhasAfetadas = await db.removerListaCarros(id);
-        if (linhasAfetadas => 1) {
 
+        if (linhasAfetadas >= 1) {
             resp.send();
-
         } else {
-
-            resp.status(404).send({erro: `Nenhum registro encontrado.`})
-
+            resp.status(400).send({
+                error: 'Nenhum registro encontrado'
+            });
         }
+        
     }  catch (err) {
         resp.status(404).send({
             erro: err.message

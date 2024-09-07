@@ -24,7 +24,8 @@ export async function inserirListaCarros(carros) {
 
 export async function consultarListaCarros() {
     const comando = `
-    select id_carro id,
+    select 
+    id_carro id,
     ds_marca     marca,
     ds_modelo    modelo,
     nr_ano       ano,
@@ -82,5 +83,5 @@ export async function removerListaCarros(id) {
     let marca = resposta[0];
 
     return marca.affectedRows;
-}
+};
     

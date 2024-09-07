@@ -39,7 +39,7 @@ endpoints.put('/listaCarros/:id', async (req, resp) => {
         let id = req.params.id;
         let carros = req.body;
 
-        let linhasAfetadas = await db.alterarListaCarros(id, carros);
+        let linhasAfetadas = await db.alterarListaCarros(carros, id);
 
         if (linhasAfetadas >= 1) {
             resp.send();
@@ -72,7 +72,7 @@ endpoints.delete('/listaCarros/:id', async (req, resp) => {
                 error: 'Nenhum registro encontrado'
             });
         }
-        
+
     }  catch (err) {
         resp.status(404).send({
             erro: err.message

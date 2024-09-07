@@ -44,7 +44,7 @@ export async function consultarListaCarros() {
 
 
 
-export async function alterarListaCarros(id, carros) {
+export async function alterarListaCarros(carros,id) {
     const comando = `
     update tb_carro
     set  ds_marca = ?,
@@ -52,8 +52,8 @@ export async function alterarListaCarros(id, carros) {
          nr_ano = ?,
          vl_preco = ?,
          img_Carro = ?,
-         dt_inclusao = ?
-         where id_carro = ?;
+         dt_inclusao = sysdate()
+   where id_carro = ?;
          `;
 
          let resposta = await connection.query(comando,
@@ -67,8 +67,9 @@ export async function alterarListaCarros(id, carros) {
         ])
 
             let marca = resposta[0]
+            let info = marca.affectedRows
 
-            return marca.affectedRows;
+            return info;
 };
 
 
